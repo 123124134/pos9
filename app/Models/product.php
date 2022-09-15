@@ -13,8 +13,13 @@ class product extends Model
 
 
 
-    // public function orderdetail()
-    // {
-    //     return $this ->hasMany('App\OrderDetail');
-    // }
+    public function orderdetail()
+    {
+        return $this->hasMany(OrderDetail::class);
+    }
+
+    public function cart()
+    {
+        return $this->belongsTo(Cart::class);
+    }
 }

@@ -198,7 +198,7 @@
                     <p class="itemtext"> Tax</p>
                 </td>
                 <td class="payment">
-                    <p class="itemtext"> Sum Total$ {{ number_format ($receipt->amount, 2)}} </p>
+                    {{-- <p class="itemtext"> Sum Total$ {{ number_format ($receipt->amount, 2)}} </p> --}}
                 </td>
             </tr>
 

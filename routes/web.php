@@ -38,3 +38,4 @@ Route::put('product/update/{id}',[App\Http\Controllers\ProductController::class,
 Route::post('product/destroy/{id}',[App\Http\Controllers\ProductController::class,'destroy'])->name('products.destroy');
 Route::get('/order',[App\Http\Controllers\OrderController::class,'index'])->name('orders.index');
 Route::post('/order',[App\Http\Controllers\OrderController::class,'store'])->name('orders.store');
+Route::get('products/barcode',[App\Http\Controllers\ProductController::class,'GetProductBarcodes'])->name('products.barcode');

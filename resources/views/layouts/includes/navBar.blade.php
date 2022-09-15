@@ -21,5 +21,6 @@
 <a href="#" class="btn btn-outline rounded-pill"><i class="fas fa-bar-chart"></i> Supplier</a>
 <a href="#" class="btn btn-outline rounded-pill"><i class="fas fa-user-group"></i> Coustmers</a>
 <a href="#" class="btn btn-outline rounded-pill"><i class="fas fa-truck fa-lg"></i> Incoming</a>
+<a href="{{ route('products.barcode')}}" class="btn btn-outline rounded-pill"><i class="fas fa-barcode fa-lg"></i> Barcode</a>
 
 @endif
