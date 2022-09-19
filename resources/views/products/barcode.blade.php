@@ -32,8 +32,9 @@
                                         <div class="col-md-4 col-sm-12 text-center">
                                             <div class="card">
                                                 <div class="card-body ">
-                                                    {!! $code->barcode !!}
-                                                    <h4 class="text-center" style="padding:1em; margin-top:2em;">{{$code->product_code}}</h4>
+                                                    <img src="{{asset('products/barcodes/'.$code->barcode) }}" alt="">
+                                                    
+                                                    <h4 class="text-center" style="padding:1em; margin-top:0.5em;">{{$code->product_code}}</h4>
 
                                                 </div>
                                             </div>

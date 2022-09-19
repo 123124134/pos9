@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Htpp\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SectionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,3 +40,4 @@ Route::post('product/destroy/{id}',[App\Http\Controllers\ProductController::clas
 Route::get('/order',[App\Http\Controllers\OrderController::class,'index'])->name('orders.index');
 Route::post('/order',[App\Http\Controllers\OrderController::class,'store'])->name('orders.store');
 Route::get('products/barcode',[App\Http\Controllers\ProductController::class,'GetProductBarcodes'])->name('products.barcode');
+Route::get('/section',[App\Http\Controllers\SectionController::class,'index'])->name('sections.index');

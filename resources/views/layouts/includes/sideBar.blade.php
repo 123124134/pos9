@@ -43,6 +43,9 @@
         <a href=""><i class="fas fa-truck fa-lg "></i>Products</a>
      </li>
 
+     <li>
+      <a href="{{route('sections.index')}}"><i class="fas fa-truck fa-lg "></i>Sections</a>
+   </li>
 
 </ul>
 

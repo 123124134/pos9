@@ -16,8 +16,8 @@ class ProductController extends Controller
 
   public function GetProductBarcodes()
   {
-    $product =product::select('barcode','product_code')->get();
-    return view('products.barcode',compact('product'));
+    $product = product::select('barcode', 'product_code')->get();
+    return view('products.barcode', compact('product'));
   }
 
   public function store(Request $request)
@@ -25,32 +25,47 @@ class ProductController extends Controller
     // return $request->all();
 
     // product code section
-
-    $product_code = rand(106897532, 100000000);
-
-    $redcolor = '255,0,0';
-    $generator = new Picqer\Barcode\BarcodeGeneratorJPG();
-     file_put_contents('products/barcodes/'.$product_code.'.jpg',
-      $generator->getBarcode(
-      $product_code,
-      $generator::TYPE_STANDARD_2_5,
-      2,
-      60
-    )
-
-     );
-
-
-    Product::create($request->all());
     $products = new Product;
+    $product_code = $request->product_code;
+
+    //  image section
+
+    if ($request->hasFile('product_image')) {
+    
+      $file = $request->file('product_image');
+      $file->move(public_path() . '/products/images', $file->getClientOriginalName());
+      $product_image = $file->getClientOriginalName();
+      $products->product_image = $product_image;
+    }
+
+    // Barcode Image Section
+   if($request->product_code != '' && $request->product_code != $products->product_code ){
+
+    $generator = new Picqer\Barcode\BarcodeGeneratorJPG();
+    file_put_contents(
+      'products/barcodes/' . $product_code . '.jpg',
+      $generator->getBarcode(
+        $product_code,
+        $generator::TYPE_CODE_128,
+        3,
+        50
+      )
+    );
+
+
+   }
+
+    
+      $products->barcode = $product_code . '.jpg';
+    
+    // Product::create($request->all());
     $products->product_name = $request->product_name;
-    $products->product_code = $request->$product_code;
+    $products->product_code = $product_code;
     $products->quantity = $request->quantity;
     $products->price = $request->price;
     $products->brand = $request->brand;
     $products->alert_stock = $request->alert_stock;
     $products->description = $request->description;
-    $products->barcode = $product_code.'jpg';
     $products->save();
 
     return redirect()->back()->with('success', 'Product Created Successfully');
@@ -58,20 +73,37 @@ class ProductController extends Controller
 
   public function update(Request $request, product $product, $id)
   {
-    $product_code = rand(106897532, 100000000);
+    $product = Product::find($id);
 
-    $redcolor = '255,0,0';
-    $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
+     
+  
+    if ($request->hasFile('product_image')) {
+      if ($product->product_image != '') {
+        $proImage_path = public_path() . '/products/images/' . $product->product_image;
+        unlink($proImage_path);
+      }
+      $file = $request->file('product_image');
+      $file->move(public_path() . '/products/images', $file->getClientOriginalName());
+      $product_image = $file->getClientOriginalName();
+      $product->product_image = $product_image;
+    
 
-    $barcodes = $generator->getBarcode(
-      $product_code,
-      $generator::TYPE_STANDARD_2_5,
-      2,
-      60
+    }
+    $product_code = $product->product_code;
+    $generator = new Picqer\Barcode\BarcodeGeneratorJPG();
+    file_put_contents(
+      'products/barcodes/' . $product_code . '.jpg',
+      $generator->getBarcode(
+        $product_code,
+        $generator::TYPE_CODE_128,
+        3,
+        50
+      )
     );
+ 
+    $product->barcode = $product_code . '.jpg';
 
     // Product::create($request->all());
-    $product = Product:: find($id);
     $product->product_name = $request->product_name;
     $product->product_code = $product_code;
     $product->quantity = $request->quantity;
@@ -79,12 +111,13 @@ class ProductController extends Controller
     $product->brand = $request->brand;
     $product->alert_stock = $request->alert_stock;
     $product->description = $request->description;
-    $product->barcode = $barcodes;
+    $product->barcode = $product_code . '.jpg';
     $product->save();
 
     // $new = $product::find($id);
     // $product->update($request->all());
     return redirect()->back()->with('success', 'Product Updated Successfully!');
+    
   }
 
   public function destroy(Product $product, $id)

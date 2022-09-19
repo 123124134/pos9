@@ -22,6 +22,8 @@ return new class extends Migration
             $table->integer('quantity');
             $table->string('product_code')->nullable();
             $table->text('barcode')->nullable();
+            $table->string('qrcode')->nullable();
+            $table->string('product_image')->nullable();
             $table->integer('alert_stock')->default('100');
             $table->timestamps();
         });
