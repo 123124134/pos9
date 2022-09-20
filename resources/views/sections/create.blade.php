@@ -60,8 +60,8 @@
     }
     </style>
     
-<div class="modal fade" id="addSection" wire:ignore.self>
-    <div class="modal-dialog modal-lg">
+<div class="modal fade " id="addSection" wire:ignore.self data-backdrop="static">
+    <div class="modal-dialog right-crud modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-title">
@@ -76,7 +76,7 @@
                         <div class="form-row">
                             <div class="col">
                                 <label for="">Section Name</label>
-                                <input type="text" name="section_name" id="section_name" class="form-ontrol"
+                                <input type="text" wire:model="section_name.{{ $more }}" class="form-ontrol"
                                     autocomplete="off">
                                 @error('section_name')
                                     <span class="text-danger">{{ $message }}</span>
@@ -84,7 +84,7 @@
                             </div>
                             <div class="col-sm-1" data-toggle=" tooltip" data-placement="top" title="status">
                                 <label class="switch">
-                                    <input type="checkbox">
+                                    <input type="checkbox" wire:model="section_status.{{ $more }}">
                                     <span class="slider"></span>
                                   </label>
                                   
